@@ -6,10 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BigUhoTape/BotIvanus.git"
+  },
   "author": "Ivan Vostrikov <vakann20@gmail.com>",
   "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^18.14.6",
-    "typescript": "^4.9.5"
+  "bugs": {
+    "url": "https://github.com/BigUhoTape/BotIvanus/issues"
+  },
+  "homepage": "https://github.com/BigUhoTape/BotIvanus#readme",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.7.1",
+    "fs": "^0.0.1-security"
   }
 }
