@@ -17,4 +17,5 @@ client.login(client.config.token)
     .then(() => {
         loadEvents(client);
         loadCommands(client);
-    });
+    })
+    .catch(err => console.log(err));
