@@ -32,5 +32,10 @@
     "rimraf": "^4.4.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.8.0",
+    "fs": "^0.0.1-security"
   }
 }
