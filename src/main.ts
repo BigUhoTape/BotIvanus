@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Partials } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import config from './config/config.js';
 import loadEvents from './handlers/eventHandler.js';
 import loadCommands from './handlers/commandHandler.js';
@@ -10,11 +10,9 @@ const client: Client = new Client({
   intents: [Guilds, GuildMembers, GuildMessages],
   partials: [User, Message, GuildMember, ThreadMember],
 });
+client.commands = new Collection();
 
-client
-  .login(config.token)
-  .then(() => {
-    loadEvents(client);
-    loadCommands(client);
-  })
-  .catch((err) => console.log(err));
+await loadEvents(client);
+await loadCommands(client);
+
+client.login(config.token).catch((err) => console.log(err));

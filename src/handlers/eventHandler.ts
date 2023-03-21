@@ -21,9 +21,9 @@ const loadEvents = async (client: Client) => {
       const event: IEvent = eventDefault.default;
 
       if (event.once) {
-        client.once(event.name, () => event.execute(client));
+        client.once(event.name, (args) => event.execute(client, args));
       } else {
-        client.on(event.name, () => event.execute(client));
+        client.on(event.name, (args) => event.execute(client, args));
       }
 
       table.addRow(file, 'loaded');

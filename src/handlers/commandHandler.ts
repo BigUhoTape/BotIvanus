@@ -23,6 +23,10 @@ const loadCommands = async (client: Client) => {
       const commandFilePath = path.resolve(`./src/commands/${folder}/${file}`);
       const commandFileDefault = await import(commandFilePath);
       const commandFile: ICommand = commandFileDefault.default;
+
+      const properties = { folder, ...commandFile };
+      client.commands.set(commandFile.data.name, properties);
+
       commandsArr.push(commandFile.data.toJSON());
       table.addRow(file, 'loaded');
     }
