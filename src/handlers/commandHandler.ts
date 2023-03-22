@@ -1,7 +1,8 @@
-import { Client } from 'discord.js';
+import { Client, REST, Routes } from 'discord.js';
 import Ascii from 'ascii-table';
 import fs from 'fs';
 import path from 'path';
+import config from '../config/config.js';
 
 //Interfaces
 import { ICommand } from '../interfaces/ICommand.js';
@@ -32,6 +33,10 @@ const loadCommands = async (client: Client) => {
     }
   }
 
+  console.log(`Started refreshing ${commandsArr.length} application (/) commands.`);
+  const rest: REST = new REST({ version: '10' }).setToken(config.token);
+  const data: any = await rest.put(Routes.applicationCommands(config.client_id), { body: commandsArr });
+  console.log(`Successfully reloaded ${data.length} application (/) commands.`);
   if (client.application) client.application.commands.set(commandsArr);
 
   return console.log(table.toString(), '\n Loaded commands');
