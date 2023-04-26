@@ -1,8 +1,10 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-import config from './config/config.js';
+import * as dotenv from 'dotenv';
 import loadEvents from './handlers/eventHandler.js';
 import loadCommands from './handlers/commandHandler.js';
 import { Player } from 'discord-player';
+
+dotenv.config();
 
 const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
@@ -22,4 +24,4 @@ client.player = new Player(client, {
 await loadEvents(client);
 await loadCommands(client);
 
-client.login(config.token).catch((err) => console.log(err));
+client.login(process.env.DISCORD_LOGIN_TOKEN).catch((err) => console.log(err));
