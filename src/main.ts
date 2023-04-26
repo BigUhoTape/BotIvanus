@@ -6,6 +6,9 @@ import { Player } from 'discord-player';
 
 dotenv.config();
 
+if (process.env.DISCORD_LOGIN_TOKEN) throw new Error("DISCORD_LOGIN_KEY doesn't exist!");
+if (process.env.CLIENT_ID) throw new Error("CLIENT_ID doesn't exist!");
+
 const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
 
