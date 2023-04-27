@@ -4,7 +4,6 @@ import { ICommand } from '../../interfaces/ICommand.js';
 const pingCommand: ICommand = {
   data: new SlashCommandBuilder().setName('ping').setDescription('Pong'),
   execute(interaction: ChatInputCommandInteraction) {
-    console.log(interaction);
     return interaction.reply({ content: 'Pong!', ephemeral: true });
   },
 };
