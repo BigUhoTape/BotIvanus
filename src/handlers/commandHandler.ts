@@ -2,6 +2,7 @@ import { Client, REST, Routes } from 'discord.js';
 import Ascii from 'ascii-table';
 import fs from 'fs';
 import path from 'path';
+import envVariables from '../helpers/envVariables.js';
 
 //Interfaces
 import { ICommand } from '../interfaces/ICommand.js';
@@ -10,20 +11,19 @@ import { ICommand } from '../interfaces/ICommand.js';
 const loadCommands = async (client: Client) => {
   const loginToken: string = process.env.DISCORD_LOGIN_TOKEN || '';
   const clientId: string = process.env.CLIENT_ID || '';
+  const { extension, rootDir } = envVariables;
 
   const table = new Ascii().setHeading('Commands', 'Status');
 
   const commandsArr = [];
-  const foldersPath = path.resolve('./src/commands');
+  const foldersPath = path.join(rootDir, '/commands');
   const folders = fs.readdirSync(foldersPath);
   for (const folder of folders) {
     const commandFilesPath = path.resolve(`${foldersPath}/${folder}`);
-    const commandFiles = fs
-      .readdirSync(commandFilesPath)
-      .filter((file) => file.endsWith('.js') || file.endsWith('.ts'));
+    const commandFiles = fs.readdirSync(commandFilesPath).filter((file) => file.endsWith(extension));
 
     for (const file of commandFiles) {
-      const commandFilePath = path.resolve(`./src/commands/${folder}/${file}`);
+      const commandFilePath = path.join(rootDir, `/commands/${folder}/${file}`);
       const commandFileDefault = await import(commandFilePath);
       const commandFile: ICommand = commandFileDefault.default;
 

@@ -2,19 +2,21 @@ import { Client } from 'discord.js';
 import Ascii from 'ascii-table';
 import fs from 'fs';
 import path from 'path';
+import envVariables from '../helpers/envVariables.js';
 
 //Interfaces
 import { IEvent } from '../interfaces/IEvent.js';
 //Interfaces
 
 const loadEvents = async (client: Client) => {
+  const { extension, rootDir } = envVariables;
   const table = new Ascii().setHeading('Events', 'Status');
 
-  const foldersPath = path.resolve('./src/events');
+  const foldersPath = path.join(rootDir, '/events');
   const folders = fs.readdirSync(foldersPath);
   for (const folder of folders) {
-    const filesPath: string = path.resolve(`./src/events/${folder}`);
-    const files = fs.readdirSync(filesPath).filter((file) => file.endsWith('.js') || file.endsWith('.ts'));
+    const filesPath: string = path.join(rootDir, `/events/${folder}`);
+    const files = fs.readdirSync(filesPath).filter((file) => file.endsWith(extension));
 
     for (const file of files) {
       const eventDefault = await import(`../events/${folder}/${file}`);
